@@ -82,3 +82,11 @@ module Calculator =
         let calc = Calculator()
         let numbers = [| x; y |] |> combineString ","
         calc.Add numbers |> should equal expected
+
+    [<Theory>]
+    [<InlineData(15, 40, "***")>]
+    [<InlineData(45, 42, "*!")>]
+    let ``Custom delimiters of any length should be accepted``(x: int, y: int, d: string) =
+        let calc = Calculator()
+        let numbers = sprintf "//[%s]\n%s" d ([| x; y|] |> combineString d)
+        calc.Add numbers |> should equal (x + y)

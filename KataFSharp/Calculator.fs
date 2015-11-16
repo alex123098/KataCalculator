@@ -4,24 +4,35 @@ open System
 
 type Calculator() =
     
+    let toString x = x.ToString()
+
     let combineString (delimiter: string) (items: 'a seq) =
         String.Join(delimiter, items)
 
     let charsToString (chars: char seq) =
         String(chars |> Seq.toArray)
 
-    let split (separators: char array) (str: string) =
+    let split (separators: string array) (str: string) =
         str.Split(separators, StringSplitOptions.RemoveEmptyEntries)
 
     let getSeparators (numbers: string) =
-        if numbers.StartsWith("//") then
+        if numbers.StartsWith("//[") then
+            [|
+                (numbers
+                 |> Seq.skip 3
+                 |> Seq.takeWhile (fun c -> c <> ']')
+                 |> charsToString);
+                "\n"
+            |]
+        elif numbers.StartsWith("//") then
             numbers
             |> Seq.skip 2
             |> Seq.take 1
-            |> Seq.append ('\n' |> Seq.singleton)
+            |> Seq.map (fun c -> c |> toString)
+            |> Seq.append ("\n" |> Seq.singleton)
             |> Seq.toArray
         else
-            [| ','; '\n' |]
+            [| ","; "\n" |]
 
     let skipPrologue (numbers: string) =
         if numbers.StartsWith("//") then
