@@ -63,4 +63,14 @@ module Calculator =
     let ``Given negative number should throw exception``(x: int, y: int) =
         let calc = Calculator()
         let numbers = [| x; y |] |> combineString ","
-        (fun () -> calc.Add numbers |> ignore) |> shouldThrowException typeof<ArgumentException>
+        (fun () -> calc.Add numbers |> ignore) |> shouldThrow typeof<ArgumentException>
+
+    [<Theory>]
+    [<InlineData(-1, 2, "-1")>]
+    [<InlineData(1, -2, "-2")>]
+    [<InlineData(-1, -2, "-1,-2")>]
+    let ``Negative number provided should be mentioned in exception message``(x: int, y: int, msg: string) =
+        let calc = Calculator()
+        let numbers = [| x; y |] |> combineString ","
+        (fun () -> calc.Add numbers |> ignore) 
+        |> shouldThrowWithMessage typeof<ArgumentException> (sprintf "Negatives not allowed. Found %s." msg)
