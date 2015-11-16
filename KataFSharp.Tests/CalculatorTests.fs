@@ -86,7 +86,15 @@ module Calculator =
     [<Theory>]
     [<InlineData(15, 40, "***")>]
     [<InlineData(45, 42, "*!")>]
-    let ``Custom delimiters of any length should be accepted``(x: int, y: int, d: string) =
+    let ``Custom delimiters of any length should be supported``(x: int, y: int, d: string) =
         let calc = Calculator()
         let numbers = sprintf "//[%s]\n%s" d ([| x; y|] |> combineString d)
         calc.Add numbers |> should equal (x + y)
+
+    [<Theory>]
+    [<InlineData(15, 40, 12, "***", "|>")>]
+    [<InlineData(45, 42, 54, "*!", "/|")>]
+    let ``Any count of custom delimiters should be supported``(x: int, y: int, z: int, d1: string, d2: string) =
+        let calc = Calculator()
+        let numbers = sprintf "//[%s][%s]\n%d%s%d%s%d" d1 d2 x d1 y d2 z
+        calc.Add numbers |> should equal (x + y + z)

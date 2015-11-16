@@ -15,20 +15,24 @@ type Calculator() =
     let split (separators: string array) (str: string) =
         str.Split(separators, StringSplitOptions.RemoveEmptyEntries)
 
+
     let getSeparators (numbers: string) =
-        if numbers.StartsWith("//[") then
-            [|
-                (numbers
-                 |> Seq.skip 3
-                 |> Seq.takeWhile (fun c -> c <> ']')
-                 |> charsToString);
-                "\n"
-            |]
-        elif numbers.StartsWith("//") then
+        let fetchSeparators (s: char seq) =
+            match (s |> Seq.toList) with
+            | x::xs when x = '[' ->
+                x::xs
+                |> charsToString
+                |> split [| "]" |]
+                |> Seq.map (fun s -> s.Substring(1))
+            | x::_ ->
+                x |> toString |> Seq.singleton
+            | [] -> Seq.empty
+
+        if numbers.StartsWith("//") then
             numbers
             |> Seq.skip 2
-            |> Seq.take 1
-            |> Seq.map (fun c -> c |> toString)
+            |> Seq.takeWhile (fun c -> c <> '\n')
+            |> fetchSeparators
             |> Seq.append ("\n" |> Seq.singleton)
             |> Seq.toArray
         else
