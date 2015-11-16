@@ -52,4 +52,5 @@ type Calculator() =
         |> separate
         |> Seq.map (fun s -> Int32.Parse(s))
         |> checkForNonNegative
+        |> Seq.filter (fun n -> n <= 1000)
         |> Seq.sum

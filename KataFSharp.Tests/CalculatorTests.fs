@@ -74,3 +74,11 @@ module Calculator =
         let numbers = [| x; y |] |> combineString ","
         (fun () -> calc.Add numbers |> ignore) 
         |> shouldThrowWithMessage typeof<ArgumentException> (sprintf "Negatives not allowed. Found %s." msg)
+
+    [<Theory>]
+    [<InlineData(10, 1020, 10)>]
+    [<InlineData(1040, 120, 120)>]
+    let ``Numbers greater than 1000 should be ignored``(x: int, y: int, expected: int) =
+        let calc = Calculator()
+        let numbers = [| x; y |] |> combineString ","
+        calc.Add numbers |> should equal expected
