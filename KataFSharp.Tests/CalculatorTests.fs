@@ -38,3 +38,11 @@ module Calculator =
         let calc = Calculator()
         let numbers = [| x; y; z |] |> combineString ","
         calc.Add numbers |> should equal (x + y + z)
+
+    [<Theory>]
+    [<InlineData(18, 6, 32)>]
+    [<InlineData(8, 16, 23)>]
+    let ``Given three items separated with comma and line break should return sum of them``(x: int, y: int, z: int) =
+        let calc = Calculator()
+        let numbers = String.Format("{0}\n{1},{2}", x, y, z)
+        calc.Add numbers |> should equal (x + y + z)
