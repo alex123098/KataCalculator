@@ -44,7 +44,7 @@ module Calculator =
     [<InlineData(8, 16, 23)>]
     let ``Given three items separated with comma and line break should return sum of them``(x: int, y: int, z: int) =
         let calc = Calculator()
-        let numbers = String.Format("{0}\n{1},{2}", x, y, z)
+        let numbers = sprintf "%d\n%d,%d" x y z
         calc.Add numbers |> should equal (x + y + z)
 
     [<Theory>]
@@ -53,5 +53,14 @@ module Calculator =
     let ``Calculator should support different delimiters``(x: int, y: int, d: char) =
         let calc = Calculator()
         let numbersOnlyString = [| x; y|] |> combineString (d |> toString)
-        let numbers = String.Format("//{0}\n{1}", d, numbersOnlyString)
+        let numbers = sprintf "//%c\n%s" d numbersOnlyString
         calc.Add numbers |> should equal (x + y)
+
+    [<Theory>]
+    [<InlineData(-1, 2)>]
+    [<InlineData(1, -2)>]
+    [<InlineData(-1, -2)>]
+    let ``Given negative number should throw exception``(x: int, y: int) =
+        let calc = Calculator()
+        let numbers = [| x; y |] |> combineString ","
+        (fun () -> calc.Add numbers |> ignore) |> shouldThrowException typeof<ArgumentException>
