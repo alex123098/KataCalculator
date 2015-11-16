@@ -30,3 +30,11 @@ module Calculator =
         let calc = Calculator()
         let numbers = [| x; y|] |> combineString ","
         calc.Add numbers |> should equal (x + y)
+
+    [<Theory>]
+    [<InlineData(15, 2, 3)>]
+    [<InlineData(8, 12, 30)>]
+    let ``Given three comma separated numbers should return sum of them``(x: int, y: int, z: int) =
+        let calc = Calculator()
+        let numbers = [| x; y; z |] |> combineString ","
+        calc.Add numbers |> should equal (x + y + z)

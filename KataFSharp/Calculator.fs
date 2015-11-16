@@ -3,10 +3,7 @@
 open System
 
 type Calculator() =
-    member x.Add numbers = 
-        if numbers <> "" then
-            numbers.Split(',')
-            |> Seq.map (fun s -> Int32.Parse(s))
-            |> Seq.sum
-        else
-            0
+    member x.Add (numbers: string) = 
+        numbers.Split([| ',' |], StringSplitOptions.RemoveEmptyEntries)
+        |> Seq.map (fun s -> Int32.Parse(s))
+        |> Seq.sum
