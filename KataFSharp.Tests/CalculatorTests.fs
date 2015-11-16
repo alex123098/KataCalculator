@@ -46,3 +46,12 @@ module Calculator =
         let calc = Calculator()
         let numbers = String.Format("{0}\n{1},{2}", x, y, z)
         calc.Add numbers |> should equal (x + y + z)
+
+    [<Theory>]
+    [<InlineData(65, 2, ']')>]
+    [<InlineData(35, 21, '\\')>]
+    let ``Calculator should support different delimiters``(x: int, y: int, d: char) =
+        let calc = Calculator()
+        let numbersOnlyString = [| x; y|] |> combineString (d |> toString)
+        let numbers = String.Format("//{0}\n{1}", d, numbersOnlyString)
+        calc.Add numbers |> should equal (x + y)
