@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "KataFSharp", "KataFSharp\KataFSharp.fsproj", "{7681FECB-089A-46E7-A6AD-FFFF7A442F04}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "KataFSharp.Tests", "KataFSharp.Tests\KataFSharp.Tests.fsproj", "{ACED1D30-7D1F-46A1-A2FA-04B47107368C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7681FECB-089A-46E7-A6AD-FFFF7A442F04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7681FECB-089A-46E7-A6AD-FFFF7A442F04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7681FECB-089A-46E7-A6AD-FFFF7A442F04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7681FECB-089A-46E7-A6AD-FFFF7A442F04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACED1D30-7D1F-46A1-A2FA-04B47107368C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACED1D30-7D1F-46A1-A2FA-04B47107368C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACED1D30-7D1F-46A1-A2FA-04B47107368C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACED1D30-7D1F-46A1-A2FA-04B47107368C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
